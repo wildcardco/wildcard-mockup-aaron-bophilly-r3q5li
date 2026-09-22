@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BoPhilly — Philly Cheesesteaks on Chicago's South Side | 95th St</title>
+<meta name="description" content="BoPhilly serves real griddled, chopped Philly cheesesteaks at 2057 E 95th St on Chicago's South Side. Whiz, provolone, or American. Takeout ready.">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#101c33;
+  --navy-deep:#0a1224;
+  --cheese:#f6b81f;
+  --cheese-hot:#ffcd45;
+  --char:#3a2417;
+  --char-lt:#5a3a24;
+  --griddle:#e2492a;
+  --paper:#f4ead7;
+  --ink:#1a1a1a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.15rem;
+  line-height:1.5;
+  background:var(--navy);
+  color:var(--paper);
+  overflow-x:hidden;
+}
+::selection{background:var(--cheese);color:var(--navy-deep)}
+h1,h2,h3,.anton{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.01em;text-transform:uppercase}
+a{color:inherit}
+img{max-width:100%;display:block}
+
+/* grain overlay */
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============ NAV ============ */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.7rem 1.1rem;
+  background:var(--navy-deep);
+  border-bottom:3px solid var(--cheese);
+}
+.topbar .mark{font-family:'Anton',sans-serif;font-size:1.4rem;text-transform:uppercase;color:var(--cheese);text-decoration:none;letter-spacing:.03em}
+.topbar .mark span{color:var(--paper)}
+.topbar nav{display:flex;gap:1.2rem;align-items:center}
+.topbar nav a{
+  text-decoration:none;font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.95rem;
+  border-bottom:2px solid transparent;transition:border-color .2s,color .2s;
+}
+.topbar nav a:hover{color:var(--cheese);border-color:var(--cheese)}
+.topbar nav a.order{
+  background:var(--griddle);color:#fff;padding:.35rem .9rem;border:2px solid var(--griddle);
+  transition:background .2s;
+}
+.topbar nav a.order:hover{background:var(--navy-deep);color:var(--griddle)}
+@media(max-width:640px){.topbar nav a:not(.order){display:none}}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;
+  min-height:92vh;
+  display:grid;place-items:center;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse 120% 70% at 50% 110%, #4a2c14 0%, transparent 55%),
+    linear-gradient(180deg,var(--navy-deep) 0%, var(--navy) 60%, #17233d 100%);
+}
+/* full-bleed steak SVG */
+.hero-steak{
+  position:absolute;left:50%;top:52%;
+  width:150vw;max-width:none;
+  transform:translate(-50%,-50%) rotate(-4deg);
+  opacity:.95;
+  animation:steakIn 1.2s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes steakIn{from{opacity:0;transform:translate(-50%,-42%) rotate(-4deg)}to{opacity:.95;transform:translate(-50%,-50%) rotate(-4deg)}}
+/* diagonal decal stamp */
+.decal{
+  position:relative;z-index:3;
+  transform:rotate(-7deg);
+  text-align:center;
+  animation:stampIn .7s .45s cubic-bezier(.2,1.4,.4,1) both;
+  padding:0 1rem;
+}
+@keyframes stampIn{from{opacity:0;transform:rotate(-7deg) scale(1.6)}to{opacity:1;transform:rotate(-7deg) scale(1)}}
+.decal .name{
+  display:inline-block;
+  font-family:'Anton',sans-serif;
+  font-size:clamp(4.2rem,17vw,13rem);
+  line-height:.9;
+  text-transform:uppercase;
+  color:var(--cheese);
+  text-shadow:.04em .05em 0 var(--griddle), .08em .1em 0 rgba(0,0,0,.55);
+  -webkit-text-stroke:2px var(--navy-deep);
+}
+.decal .strap{
+  display:inline-block;margin-top:.9rem;
+  background:var(--griddle);color:#fff;
+  font-weight:700;text-transform:uppercase;letter-spacing:.22em;
+  font-size:clamp(.8rem,2.4vw,1.15rem);
+  padding:.35rem 1.2rem;
+  box-shadow:.25rem .3rem 0 rgba(0,0,0,.45);
+}
+.decal .sub{
+  margin-top:.8rem;font-weight:600;font-size:clamp(1rem,2.6vw,1.35rem);
+  color:var(--paper);text-shadow:0 2px 6px rgba(0,0,0,.7);
+}
+.hero-ctas{
+  position:relative;z-index:3;margin-top:2rem;
+  display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;
+  animation:stampIn .7s .7s cubic-bezier(.2,1.4,.4,1) both;
+  transform:rotate(0deg);
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.btn{
+  display:inline-block;text-decoration:none;text-transform:uppercase;
+  font-family:'Anton',sans-serif;font-size:1.15rem;letter-spacing:.05em;
+  padding:.85rem 1.9rem;transition:transform .15s,box-shadow .15s;
+}
+.btn:hover{transform:translate(-2px,-2px)}
+.btn-cheese{background:var(--cheese);color:var(--navy-deep);box-shadow:.3rem .3rem 0 var(--griddle)}
+.btn-cheese:hover{box-shadow:.45rem .45rem 0 var(--griddle)}
+.btn-ghost{border:3px solid var(--paper);color:var(--paper);box-shadow:.3rem .3rem 0 rgba(0,0,0,.4)}
+.btn-ghost:hover{background:var(--paper);color:var(--navy-deep)}
+.hero-rating{
+  position:absolute;z-index:4;right:4vw;bottom:6vh;
+  transform:rotate(6deg);
+  background:var(--paper);color:var(--navy-deep);
+  padding:.7rem 1rem;text-align:center;
+  box-shadow:.35rem .4rem 0 rgba(0,0,0,.5);
+  animation:stampIn .6s 1s cubic-bezier(.2,1.4,.4,1) both;
+}
+.hero-rating .num{font-family:'Anton',sans-serif;font-size:2rem;line-height:1;color:var(--griddle)}
+.hero-rating small{display:block;font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.72rem}
+
+/* ============ MARQUEE ============ */
+.ticker{
+  background:var(--cheese);color:var(--navy-deep);
+  overflow:hidden;white-space:nowrap;
+  border-top:3px solid var(--navy-deep);border-bottom:3px solid var(--navy-deep);
+  transform:rotate(-1deg) scale(1.02);
+  padding:.55rem 0;position:relative;z-index:5;
+}
+.ticker .track{display:inline-block;animation:scroll 26s linear infinite}
+.ticker span{
+  font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.25rem;
+  padding:0 1.4rem;
+}
+.ticker span::after{content:"★";margin-left:2.8rem;color:var(--griddle)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ============ SECTIONS ============ */
+section{padding:5rem 1.25rem}
+.wrap{max-width:1100px;margin:0 auto}
+.kicker{
+  display:inline-block;background:var(--griddle);color:#fff;
+  font-weight:700;text-transform:uppercase;letter-spacing:.2em;font-size:.85rem;
+  padding:.25rem .9rem;margin-bottom:1rem;transform:rotate(-2deg);
+}
+h2{font-size:clamp(2.2rem,6vw,3.8rem);line-height:1;color:var(--cheese);margin-bottom:1.5rem}
+
+/* reveal on scroll (CSS only) */
+.reveal{opacity:0;transform:translateY(30px);animation:fadeUp .8s ease-out forwards;animation-timeline:view();animation-range:entry 0% entry 45%}
+@supports not (animation-timeline: view()){.reveal{opacity:1;transform:none;animation:none}}
+
+/* STORY */
+.story{background:var(--navy)}
+.story .wrap{display:grid;gap:2.5rem;align-items:center}
+@media(min-width:820px){.story .wrap{grid-template-columns:1.1fr .9fr}}
+.story p{font-size:1.25rem;margin-bottom:1rem;max-width:56ch}
+.story strong{color:var(--cheese-hot)}
+.story .flag{
+  border:3px solid var(--cheese);padding:2rem 1.6rem;
+  transform:rotate(1.5deg);background:var(--navy-deep);
+  box-shadow:.5rem .5rem 0 var(--char);
+}
+.story .flag p{font-size:1.15rem;font-style:italic;font-weight:600}
+.story .flag .big{font-family:'Anton',sans-serif;font-style:normal;font-size:1.6rem;color:var(--griddle);text-transform:uppercase;margin-bottom:.6rem;line-height:1.1}
+
+/* MENU */
+.menu{background:var(--paper);color:var(--ink);position:relative}
+.menu::before,.menu::after{
+  content:"";position:absolute;left:0;right:0;height:16px;
+  background:repeating-linear-gradient(-45deg,var(--cheese) 0 14px,var(--navy-deep) 14px 28px);
+}
+.menu::before{top:0}.menu::after{bottom:0}
+.menu h2{color:var(--griddle)}
+.menu .lede{font-size:1.25rem;font-weight:600;max-width:60ch;margin-bottom:2.5rem}
+.board{display:grid;gap:1.4rem}
+@media(min-width:760px){.board{grid-template-columns:repeat(2,1fr)}}
+.dish{
+  background:#fff;border:3px solid var(--navy-deep);
+  padding:1.4rem 1.4rem 1.2rem;position:relative;
+  box-shadow:.4rem .4rem 0 var(--navy-deep);
+  transition:transform .18s,box-shadow .18s;
+}
+.dish:hover{transform:translate(-3px,-3px) rotate(-.4deg);box-shadow:.7rem .7rem 0 var(--griddle)}
+.dish h3{font-size:1.5rem;color:var(--navy-deep);margin-bottom:.4rem}
+.dish p{font-weight:500;font-size:1.1rem}
+.dish .tag{
+  position:absolute;top:-.85rem;right:.9rem;
+  background:var(--griddle);color:#fff;font-weight:700;text-transform:uppercase;
+  font-size:.75rem;letter-spacing:.1em;padding:.2rem .7rem;transform:rotate(2deg);
+}
+.cheese-row{
+  margin-top:2.5rem;display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;
+  font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+}
+.cheese-row .pick{
+  background:var(--cheese);border:3px solid var(--navy-deep);padding:.35rem 1.1rem;
+  font-family:'Anton',sans-serif;font-size:1.05rem;
+}
+.menu-note{margin-top:1.6rem;font-weight:600;font-size:1.05rem;font-style:italic}
+
+/* HOW IT'S DONE */
+.craft{background:var(--navy-deep)}
+.steps{display:grid;gap:1.6rem;counter-reset:step}
+@media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{
+  counter-increment:step;
+  border-top:4px solid var(--griddle);padding-top:1.1rem;
+}
+.step::before{
+  content:"0" counter(step);
+  font-family:'Anton',sans-serif;font-size:2.6rem;color:var(--cheese);
+  display:block;line-height:1;margin-bottom:.5rem;
+}
+.step h3{font-size:1.35rem;color:var(--paper);margin-bottom:.4rem}
+.step p{font-size:1.1rem;color:#cfd6e4}
+
+/* REP */
+.rep{background:var(--griddle);color:#fff;text-align:center;position:relative;overflow:hidden}
+.rep h2{color:#fff;font-size:clamp(2.4rem,7vw,4.5rem)}
+.rep .stars{font-size:clamp(2rem,6vw,3.2rem);letter-spacing:.15em;color:var(--cheese-hot);text-shadow:.06em .08em 0 rgba(0,0,0,.35);margin-bottom:.6rem}
+.rep p{font-size:1.3rem;font-weight:600;max-width:52ch;margin:0 auto 2rem}
+.rep .btn-navy{background:var(--navy-deep);color:var(--cheese);box-shadow:.3rem .3rem 0 rgba(0,0,0,.35)}
+.rep .btn-navy:hover{box-shadow:.5rem .5rem 0 rgba(0,0,0,.35)}
+
+/* FIND US */
+.find .wrap{display:grid;gap:2.5rem}
+@media(min-width:820px){.find .wrap{grid-template-columns:1fr 1fr;align-items:start}}
+.addr-card{
+  background:var(--paper);color:var(--navy-deep);
+  padding:2rem 1.8rem;transform:rotate(-1deg);
+  box-shadow:.6rem .6rem 0 var(--cheese);
+}
+.addr-card h3{font-size:1.6rem;margin-bottom:.8rem;color:var(--griddle)}
+.addr-card address{font-style:normal;font-weight:600;font-size:1.3rem;line-height:1.4;margin-bottom:1.2rem}
+.addr-card a.map{
+  font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--navy-deep);
+  text-decoration:underline;text-decoration-color:var(--griddle);text-decoration-thickness:3px;text-underline-offset:4px;
+}
+.find ul{list-style:none;margin-top:1rem}
+.find li{
+  padding:.9rem 0;border-bottom:2px dashed rgba(244,234,215,.25);
+  font-size:1.2rem;font-weight:600;display:flex;gap:.7rem;align-items:baseline;
+}
+.find li b{font-family:'Anton',sans-serif;font-weight:400;color:var(--cheese);text-transform:uppercase;font-size:1.05rem;min-width:7.5rem}
+
+/* FOOTER */
+footer{
+  background:var(--navy-deep);border-top:3px solid var(--cheese);
+  padding:3rem 1.25rem 2rem;text-align:center;
+}
+footer .fname{font-family:'Anton',sans-serif;font-size:2rem;color:var(--cheese);text-transform:uppercase}
+footer .fname span{color:var(--paper)}
+footer p{margin-top:.6rem;font-weight:600;color:#aeb8cc;font-size:1rem}
+footer a{color:#aeb8cc}
+footer .credit{margin-top:1.6rem;font-size:.85rem;opacity:.55;font-style:italic}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001s!important;animation-delay:0s!important;transition:none!important}
+  .ticker .track{animation:none}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="mark" href="#top">Bo<span>Philly</span></a>
+  <nav aria-label="Main">
+    <a href="#menu">Menu</a>
+    <a href="#craft">The Griddle</a>
+    <a href="#find">Find Us</a>
+    <a class="order" href="#find">Order Takeout</a>
+  </nav>
+</header>
+
+<main id="top">
+<!-- ============ HERO ============ -->
+<section class="hero" aria-label="BoPhilly — Philly cheesesteaks, South Side Chicago" style="padding:0">
+  <!-- full-bleed cheesesteak illustration -->
+  <svg class="hero-steak" viewBox="0 0 1400 520" role="img" aria-label="Illustration of a cheesesteak mid-assembly on the griddle" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="roll" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#e8b978"/><stop offset=".5" stop-color="#d49a55"/><stop offset="1" stop-color="#b87d3d"/>
+      </linearGradient>
+      <linearGradient id="rollTop" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f0c98d"/><stop offset="1" stop-color="#cf9750"/>
+      </linearGradient>
+      <linearGradient id="steak" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#6b4326"/><stop offset="1" stop-color="#3a2417"/>
+      </linearGradient>
+      <linearGradient id="whiz" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffd44d"/><stop offset="1" stop-color="#f0a814"/>
+      </linearGradient>
+    </defs>
+    <!-- griddle steam -->
+    <g stroke="#f4ead7" stroke-width="7" fill="none" opacity=".22" stroke-linecap="round">
+      <path d="M330 190 q 20 -45 -5 -85 q -20 -35 5 -70"/>
+      <path d="M700 150 q 22 -48 -6 -90 q -18 -32 6 -60"/>
+      <path d="M1060 185 q 20 -45 -5 -85 q -20 -35 5 -70"/>
+    </g>
+    <!-- bottom roll -->
+    <path d="M60 400 Q 700 470 1340 400 L 1340 430 Q 700 500 60 430 Z" fill="url(#roll)"/>
+    <!-- chopped steak -->
+    <path d="M80 355 Q 250 320 420 350 Q 600 310 780 348 Q 950 315 1120 350 Q 1250 330 1330 358 Q 1340 400 1330 405 Q 700 465 70 405 Q 65 380 80 355 Z" fill="url(#steak)"/>
+    <g fill="#5a3a24">
+      <ellipse cx="250" cy="360" rx="55" ry="14" transform="rotate(-6 250 360)"/>
+      <ellipse cx="520" cy="352" rx="60" ry="14" transform="rotate(4 520 352)"/>
+      <ellipse cx="820" cy="358" rx="58" ry="13" transform="rotate(-5 820 358)"/>
+      <ellipse cx="1110" cy="362" rx="55" ry="13" transform="rotate(5 1110 362)"/>
+    </g>
+    <!-- molten whiz drips -->
+    <path d="M100 340 Q 400 300 700 330 Q 1000 300 1310 340 Q 1318 360 1300 366 Q 1260 352 1240 382 Q 1225 402 1212 372 Q 1000 340 860 372 Q 845 400 830 368 Q 700 350 560 370 Q 548 405 530 368 Q 350 345 240 372 Q 226 404 210 366 Q 140 356 96 362 Q 84 350 100 340 Z" fill="url(#whiz)"/>
+    <!-- top roll -->
+    <path d="M90 330 Q 130 235 400 225 Q 700 212 1010 228 Q 1290 240 1315 330 Q 1200 310 700 306 Q 250 308 90 330 Z" fill="url(#rollTop)"/>
+    <!-- roll shine + sesame-less griddle marks -->
+    <path d="M180 280 Q 450 248 700 250 Q 980 250 1230 282" stroke="#f8dba6" stroke-width="10" fill="none" opacity=".6" stroke-linecap="round"/>
+    <!-- griddle line -->
+    <rect x="0" y="452" width="1400" height="14" fill="#0a1224" opacity=".8"/>
+    <!-- sparks -->
+    <g fill="#e2492a">
+      <circle cx="200" cy="445" r="5"/><circle cx="640" cy="448" r="4"/><circle cx="1180" cy="444" r="5"/><circle cx="900" cy="447" r="3.5"/>
+    </g>
+  </svg>
+
+  <div>
+    <div class="decal">
+      <h1 class="name">BoPhilly</h1><br>
+      <span class="strap">Real Philly Cheesesteaks &middot; South Side Chicago</span>
+      <p class="sub">Griddled. Chopped. Buried in cheese. On 95th St since word got out.</p>
+    </div>
+    <div class="hero-ctas">
+      <a class="btn btn-cheese" href="#find">Order Takeout</a>
+      <a class="btn btn-ghost" href="#menu">See the Menu</a>
+    </div>
+  </div>
+
+  <div class="hero-rating" aria-label="Rated 4.7 stars by 35 reviewers">
+    <span class="num">4.7&#9733;</span>
+    <small>35 real reviews<br>zero ad budget</small>
+  </div>
+</section>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    <span>Whiz or Provolone</span><span>Chopped on the flat-top</span><span>2057 E 95th St</span><span>Cheese fries, obviously</span><span>Whiz or Provolone</span><span>Chopped on the flat-top</span><span>2057 E 95th St</span><span>Cheese fries, obviously</span>
+  </div>
+</div>
+
+<!-- ============ STORY ============ -->
+<section class="story" id="story">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kicker">Who We Are</span>
+      <h2>Philly Moved In.<br>The South Side Ate.</h2>
+      <p>BoPhilly is a counter-serve corner spot on the 95th St corridor doing one thing the way it's supposed to be done: <strong>the Philly cheesesteak</strong> — thin-cut steak hitting a screaming-hot griddle, chopped down with the spatula, folded into cheese, and packed into a roll while it's still steaming.</p>
+      <p>No gimmicks, no fifteen-page menu, no ambiance to speak of. Just a <strong>4.7-star reputation</strong> built sandwich by sandwich, regular by regular — the kind of word-of-mouth you can't buy.</p>
+    </div>
+    <aside class="flag reveal">
+      <p class="big">The rule of the house:</p>
+      <p>If it doesn't drip, it doesn't leave the counter. Every steak is griddled and chopped to order — nothing sitting under a heat lamp, ever.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ MENU ============ -->
+<section class="menu" id="menu">
+  <div class="wrap">
+    <span class="kicker">The Board</span>
+    <h2 class="reveal">Short Menu. Long Line.</h2>
+    <p class="lede reveal">We keep it simple so we can keep it perfect. Sandwiches, sides, and combos — that's the whole story.</p>
+    <div class="board">
+      <article class="dish reveal">
+        <span class="tag">The Reason You Came</span>
+        <h3>Philly Cheesesteak</h3>
+        <p>Thin-sliced steak griddled and chopped the authentic Philly way, loaded onto a soft roll with your cheese of choice. Add onions if you know what's good for you.</p>
+      </article>
+      <article class="dish reveal">
+        <span class="tag">Loaded Up</span>
+        <h3>Specialty Steaks</h3>
+        <p>Loaded and specialty variations for when the classic isn't enough — stacked, sauced, and built to require two hands and full attention.</p>
+      </article>
+      <article class="dish reveal">
+        <h3>Hoagies &amp; Subs</h3>
+        <p>Proper hoagies on proper rolls. Cold or hot, stacked generous — the South Side lunch that actually gets you through the afternoon.</p>
+      </article>
+      <article class="dish reveal">
+        <h3>Fries &amp; Cheese Fries</h3>
+        <p>Hot, crispy fries — or do the right thing and get them drowned in cheese. Ask about combo and platter deals to make it a full meal.</p>
+      </article>
+    </div>
+    <div class="cheese-row reveal" aria-label="Cheese options">
+      <span>Pick your cheese:</span>
+      <span class="pick">Whiz</span>
+      <span class="pick">Provolone</span>
+      <span class="pick">American</span>
+    </div>
+    <p class="menu-note reveal">Takeout ready. Swing by the counter or call in ahead — your order's on the griddle before you park.</p>
+  </div>
+</section>
+
+<!-- ============ CRAFT ============ -->
+<section class="craft" id="craft">
+  <div class="wrap">
+    <span class="kicker">The Griddle</span>
+    <h2 class="reveal">How a Real One Gets Made</h2>
+    <div class="steps">
+      <div class="step reveal">
+        <h3>Hit the Flat-Top</h3>
+        <p>Thin-cut steak lands on a hot griddle. That sizzle you hear from the doorway? That's yours.</p>
+      </div>
+      <div class="step reveal">
+        <h3>Chop It Down</h3>
+        <p>Worked and chopped with the spatula the Philly way — no lazy whole slices, no shortcuts.</p>
+      </div>
+      <div class="step reveal">
+        <h3>Cheese &amp; Roll</h3>
+        <p>Folded into Whiz, provolone, or American, then packed into the roll hot. Wrapped tight. Gone in minutes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REP ============ -->
+<section class="rep">
+  <div class="wrap reveal">
+    <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    <h2>4.7 Stars. All Word of Mouth.</h2>
+    <p>35 reviews from repeat customers who came back, brought somebody, and told the neighborhood. We didn't run a single ad — the sandwich did the talking. Come find out why.</p>
+    <a class="btn btn-navy" href="#find">Come Get One</a>
+  </div>
+</section>
+
+<!-- ============ FIND US ============ -->
+<section class="find" id="find">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kicker">Find Us</span>
+      <h2>95th St.<br>Follow the Smell.</h2>
+      <ul>
+        <li><b>Order</b> Takeout at the counter — call ahead or walk in, we move fast either way.</li>
+        <li><b>Neighborhood</b> South Deering / East Side, on the 95th St corridor.</li>
+        <li><b>Online</b> <a href="https://www.BoPhillyFood.com" style="color:var(--cheese)">BoPhillyFood.com</a></li>
+        <li><b>Good to know</b> Counter-serve spot — built for grab-and-go, not white tablecloths.</li>
+      </ul>
+    </div>
+    <div class="addr-card reveal">
+      <h3>BoPhilly</h3>
+      <address>
+        2057 E 95th St<br>
+        Chicago, IL 60617
+      </address>
+      <a class="map" href="https://maps.google.com/?q=BoPhilly+2057+E+95th+St+Chicago+IL+60617" rel="noopener">Get Directions &rarr;</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p class="fname">Bo<span>Philly</span></p>
+  <p>2057 E 95th St, Chicago, IL 60617 &middot; <a href="https://www.BoPhillyFood.com">BoPhillyFood.com</a></p>
+  <p>&copy; 2026 BoPhilly. Griddled fresh, chopped loud, South Side proud.</p>
+  <p class="credit">Website sample by Wild Card Creative Co</p>
+</footer>
+
+</body>
+</html>
